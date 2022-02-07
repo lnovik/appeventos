@@ -37,7 +37,7 @@ public class Evento implements Serializable {
     @Size(min=2, max=100, message="Tem de ter pelo menos 2 letras")
     private String horario;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "evento", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.ALL})
     private List<Convidado> convidados;
 
 

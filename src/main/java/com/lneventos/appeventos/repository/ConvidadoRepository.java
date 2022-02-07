@@ -7,4 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface ConvidadoRepository extends CrudRepository<Convidado,Long> {
 
     Iterable<Convidado> findByEvento(Evento evento);
+
+    Convidado findById(long codigo);
+
 }

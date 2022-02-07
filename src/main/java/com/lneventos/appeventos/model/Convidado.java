@@ -17,8 +17,11 @@ public class Convidado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_Convidado")
-    private Long id;
+    private Long codigo;
 
+
+
+    @NotEmpty
     @CPF
     @Column(nullable = false, unique = true)
     private String cpf;

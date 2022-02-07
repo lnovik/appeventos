@@ -1,0 +1,4 @@
+ <div class="container foto">
+        <img src="/img/brasil.png" alt="some text" width=100 height=100  >
+    </div>
+

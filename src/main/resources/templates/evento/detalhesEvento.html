@@ -18,16 +18,17 @@
 
 </head>
 <body>
+<header>
 <nav>
     <div class="nav-wrapper red darken-4">
         <a href="#" class="brand-logo">Evento</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="/eventos" class="blue-grey darken-2 waves-light btn"><i
-                    class="material-icons left">add_circle_outline</i>Lista de Evento</a></li>
+                    class="material-icons left">add_circle_outline</i>Lista de Eventos</a></li>
         </ul>
     </div>
 </nav>
-
+</header>
 
     <div th:each="evento: ${evento}" class="container detalhesEvento">
         <div class="row">
@@ -52,14 +53,18 @@
 <table class="container tabelaConvidado">
     <thead>
         <tr>
-            <th>Nome Convidado</th>
+            <th>Convidado</th>
             <th>CPF</th>
+            <th>Deletar</th>
         </tr>
     </thead>
         <tbody>
             <tr th:each="convidado: ${convidados}">
                 <td><span th:text="${convidado.nomeConvidado}"></span></td>
                 <td><span th:text="${convidado.cpf}"></span></td>
+                <td><a class="white" th:href="${(#mvc.url('EC#deletarConvidado').arg(0, convidado.codigo)).build()}"><i
+                        class="material-icons left-large"
+                >delete_forever</i></a></td>
             </tr>
         </tbody>
 </table>

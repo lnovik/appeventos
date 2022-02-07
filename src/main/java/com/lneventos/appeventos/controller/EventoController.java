@@ -17,11 +17,10 @@ import javax.validation.Valid;
 
 @Controller
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class  EventoController {
+public class EventoController {
 
 
     private EventoRepository eventoRepository;
-
 
     private ConvidadoRepository convidadoRepository;
 
@@ -52,13 +51,30 @@ public class  EventoController {
 
     @GetMapping("/{codigo}")
     public ModelAndView detalhesEvento(@PathVariable("codigo") long codigo) {
-        Evento evento = eventoRepository.findByCodigo(codigo);
+         Evento evento = eventoRepository.findByCodigo(codigo);
         ModelAndView modelAndView = new ModelAndView("evento/detalhesEvento");
         modelAndView.addObject("evento", evento);
         Iterable<Convidado> convidados = convidadoRepository.findByEvento(evento);
         modelAndView.addObject("convidados", convidados);
 
         return modelAndView;
+    }
+
+    @GetMapping("/deletarEvento")
+    public String deletarEvento(long codigo, RedirectAttributes attributes) {
+        Evento evento = eventoRepository.findByCodigo(codigo);
+        eventoRepository.delete(evento);
+        attributes.addFlashAttribute("mensagem", "Deletado com sucesso");
+        return "redirect:/eventos";
+    }
+    @GetMapping("/deletarConvidado")
+    public String deletarConvidado(long codigo){
+        Convidado convidado = convidadoRepository.findById(codigo);
+        convidadoRepository.delete(convidado);
+        Evento evento = convidado.getEvento();
+        long codigoLong = evento.getCodigo();
+        String codigoEvento = "" + codigoLong;
+        return "redirect:/" + codigoEvento;
     }
 
     @PostMapping("/{codigo}")
