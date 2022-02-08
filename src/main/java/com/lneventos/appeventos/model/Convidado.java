@@ -19,14 +19,12 @@ public class Convidado {
     @Column(name = "id_Convidado")
     private Long codigo;
 
-
-
     @NotEmpty
     @CPF
     @Column(nullable = false, unique = true)
     private String cpf;
 
-    @NotEmpty
+    @Column(nullable = false)
     @Size(min=2, max=100, message="Tem de ter pelo menos 2 letras")
     private String nomeConvidado;
 

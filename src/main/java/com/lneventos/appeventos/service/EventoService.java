@@ -1,8 +1,5 @@
 package com.lneventos.appeventos.service;
 
-import com.lneventos.appeventos.dto.ConvidadoDTO;
-import com.lneventos.appeventos.dto.EventoDTO;
-import com.lneventos.appeventos.mapper.EventoMapper;
 import com.lneventos.appeventos.model.Convidado;
 import com.lneventos.appeventos.model.Evento;
 import com.lneventos.appeventos.repository.ConvidadoRepository;
@@ -18,28 +15,26 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
+
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class EventoService {
 
-    private EventoRepository eventoRepository;
+    private final EventoRepository eventoRepository;
 
-    private final EventoMapper eventoMapper = EventoMapper.INSTANCE;
-
-    private ConvidadoRepository convidadoRepository;
+    private final ConvidadoRepository convidadoRepository;
 
     public String formService() {
         return "evento/formEvento";
     }
 
 
-    public String formEventoService(@Valid @ModelAttribute EventoDTO eventoDTO, BindingResult result, RedirectAttributes attributes ){
-        if (result.hasErrors()) {
+    public String formEventoService(Evento evento, BindingResult bindingResult, RedirectAttributes attributes ){
+        if(bindingResult.hasErrors()){
             attributes.addFlashAttribute("mensagem", "Verifique os campos");
             return "redirect:/cadastrarEvento";
         }
-        Evento eventoTosave = eventoMapper.toModel(eventoDTO);
-        eventoRepository.save(eventoTosave);
+        eventoRepository.save(evento);
         attributes.addFlashAttribute("mensagem", "Evento cadastrado com sucesso");
         return "redirect:/cadastrarEvento";
     }
@@ -76,18 +71,17 @@ public class EventoService {
         return "redirect:/" + codigoEvento;
     }
 
-    public String detalhesEventoPostService(@PathVariable("codigo") long codigo, @Valid @ModelAttribute ConvidadoDTO convidadoDTO, BindingResult result, RedirectAttributes attributes){
+    public String detalhesEventoPostService(@PathVariable("codigo") long codigo, Convidado convidado, BindingResult result, RedirectAttributes attributes){
         if (result.hasErrors()) {
             attributes.addFlashAttribute("mensagem", "Verifique os campos");
             return "redirect:/{codigo}";
         }
         Evento evento = eventoRepository.findByCodigo(codigo);
-
-        convidadoDTO.setEvento(evento);
-        Convidado convidadoToSave = eventoMapper.toModel(convidadoDTO);
-        convidadoRepository.save(convidadoToSave);
+        convidado.setEvento(evento);
+        convidadoRepository.save(convidado);
         attributes.addFlashAttribute("mensagem", "Convidado Adicionado com Sucesso!");
         return "redirect:/{codigo}";
     }
 
 }
+

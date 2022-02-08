@@ -23,17 +23,21 @@ public class Evento implements Serializable {
     private Long codigo;
 
     @NotEmpty
+    @Column(nullable = false)
     private String nome;
 
     @NotEmpty
+    @Column(nullable = false)
     @Size(min=2, max=100, message="Tem de ter pelo menos 2 letras")
     private String local;
 
     @NotEmpty
+    @Column(nullable = false)
     @Size(min=2, max=100, message="Tem de ter pelo menos 2 letras")
     private String data;
 
     @NotEmpty
+    @Column(nullable = false)
     @Size(min=2, max=100, message="Tem de ter pelo menos 2 letras")
     private String horario;
 

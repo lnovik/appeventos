@@ -5,12 +5,14 @@ import com.lneventos.appeventos.dto.EventoDTO;
 import com.lneventos.appeventos.model.Convidado;
 import com.lneventos.appeventos.model.Evento;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface EventoMapper {
 
     EventoMapper INSTANCE = Mappers.getMapper(EventoMapper.class);
+
 
     Evento toModel(EventoDTO eventoDTO);
 
