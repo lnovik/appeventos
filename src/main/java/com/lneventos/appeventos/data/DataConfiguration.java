@@ -1,4 +1,4 @@
-package com.lneventos.appeventos;
+package com.lneventos.appeventos.data;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
